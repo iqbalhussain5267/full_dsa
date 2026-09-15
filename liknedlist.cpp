@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+
+    // Constructor to initialize the node with a value
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+int main() {
+    // Creating the 5 nodes
+    Node* first = new Node(10);
+    Node* second = new Node(20);
+    Node* third = new Node(30);
+    Node* fourth = new Node(50);
+    Node* fifth = new Node(60);
+    
+    // Linking the nodes together
+    first->next = second;
+    second->next = third;
+    third->next = fourth; 
+    fourth->next = fifth;
+
+    // Initialize both pointers at the start of the list
+    Node* slow = first;
+    Node* fast = first;
+
+    // Move fast by 2 steps and slow by 1 step
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;         // Moves 1 step
+        fast = fast->next->next;   // Moves 2 steps
+    }
+
+    // When fast reaches the end, slow is exactly at the middle
+    cout << "Middle element: " << slow->data << endl;
+
+    // Clean up memory
+    delete first;
+    delete second;
+    delete third;
+    delete fourth;
+    delete fifth;
+
+    return 0;
+}
+
